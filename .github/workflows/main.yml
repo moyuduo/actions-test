@@ -39,4 +39,11 @@ jobs:
       - name: Run app
         run: |
           cd $GITHUB_WORKSPACE
-          ls -la
+          go run main.go
+
+  check:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+    - name: Curl /ping
+      run: curl localhost:9090/ping
