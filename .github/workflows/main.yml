@@ -41,5 +41,8 @@ jobs:
           cd $GITHUB_WORKSPACE
           go run main.go &
 
+      - name: Process status check
+        run: ps -ef|grep main
+
       - name: Curl /ping
         run: curl localhost:9090/ping
