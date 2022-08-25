@@ -11,15 +11,20 @@ on:
     branches: [ "master" ]
 
   # Allows you to run this workflow manually from the Actions tab
-  #workflow_dispatch:
+  # workflow_dispatch:
+
+env:
+  DAY_OF_WEEK: Monday
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    #runs-on: ubuntu-latest
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
+
+    env:
+      Greeting: Hello
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -37,13 +42,30 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
       
-      - name: Run app
+      # - name: Run app
+      #   run: |
+      #     cd $GITHUB_WORKSPACE
+      #     go run main.go &
+
+      # - name: Process status check
+      #   run: ps -ef|grep main
+
+      # - name: Curl /ping
+      #   run: curl localhost:9090/ping
+
+      - name: Print env var
         run: |
-          cd $GITHUB_WORKSPACE
-          go run main.go &
+          echo $CI
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_EVENT_NAME
+          echo $GITHUB_SHA
+          echo $GITHUB_REF_NAME
 
-      - name: Process status check
-        run: ps -ef|grep main
+      - name: Set env var
+        run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
+        env: 
+          First_Name: Mona
 
-      - name: Curl /ping
-        run: curl localhost:9090/ping
+      - name: Say hello in another step
+        run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
+      
