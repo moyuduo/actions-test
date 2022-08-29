@@ -78,4 +78,15 @@ jobs:
 
       - name: Echo image tag
         run: echo $IMAGE_TAG
+
+      - name: Build image
+        run: docker build -t $IMAGE_TAG .
+
+      - name: Login registry
+        run: echo "${{ secrets.DOCKERHUB_PASS }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin dockerhub.qingcloud.com
+
+      - name: Push image
+        run: |
+          docker tag $IMAGE_TAG dockerhub.qingcloud.com/taoli/$IMAGE_TAG
+          docker push dockerhub.qingcloud.com/taoli/$IMAGE_TAG
       
