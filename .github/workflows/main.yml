@@ -25,6 +25,7 @@ jobs:
 
     env:
       Greeting: Hello
+      ProjectImageName: action-test:$GITHUB_SHA
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -68,4 +69,7 @@ jobs:
 
       - name: Say hello in another step
         run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
+
+      - name: Echo project image name
+        run: echo $ProjectImageName
       
