@@ -72,4 +72,10 @@ jobs:
 
       - name: Echo project image name
         run: echo $ProjectImageName
+
+      - name: Set image tag
+        run: echo "IMAGE_TAG=action-test:$(date '+%Y%m%d-%H%M%S')-$GITHUB_SHA" >> $GITHUB_ENV
+
+      - name: Echo image tag
+        run: echo $IMAGE_TAG
       
